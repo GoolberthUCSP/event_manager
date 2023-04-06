@@ -10,9 +10,10 @@ class User:
         self.type = _type
 
 users = []
-users.append(User("admin_test@gmail.com", "passwordAdmin", 1))
-users.append(User("encargado_test@gmail.com", "passwordEncargado", 2))
-users.append(User("colaborador_test@gmail.com", "passwordColaborador", 3))
+users.append(User("admin@gmail.com", "admin", 1))
+users.append(User("encargado@gmail.com", "encargado", 2))
+users.append(User("colab@gmail.com", "colab", 3))
+users.append(User("client@gmail.com", "client", 4))
 
 @app.route("/", methods =["GET", "POST"])
 def home():
@@ -23,8 +24,10 @@ def home():
                     return redirect("/admin")
                 elif (user.type == 2):
                     return redirect("/encargado")
-                else:
+                elif (user.type == 3):
                     return redirect("/colaborador")
+                else:
+                    return redirect("/cliente")
                 
     return render_template("login.html")
 
@@ -40,7 +43,11 @@ def encargado():
 def colaborador():
     return render_template("colaborador.html")
 
+@app.route("/cliente")
+def cliente():
+    return render_template("cliente.html")
+
 if (__name__ == "__main__"):
-    app.run()
+    app.run(debug=True)
 
 
